@@ -91,5 +91,6 @@ public class ArithmeticOp {
         s10 +=2;
         s10 = (short)(s10+2);
 
+
     }
 }
