@@ -9,5 +9,6 @@ public class Person2  extends User {
 //        System.out.println(this.nationalId);//compilation error
 //        test2(); //compilation error
 //        this.password compilation error
+
     }
 }
