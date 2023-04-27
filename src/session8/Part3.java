@@ -1,6 +1,6 @@
 package session8;
 
-public class part3 {
+public class Part3 {
 
     public static void main(String[] args) {
         String name = "Ahmad";
@@ -24,5 +24,8 @@ public class part3 {
         name3="Mosa";
 
         String[] names= new String[10];
+
+        System.out.println("name.equals(name2) = " + name.equals(name2));
+        System.out.println("name.equalsIgnoreCase(name2) = " + name.equalsIgnoreCase(name2));
     }
 }
