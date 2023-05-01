@@ -1,7 +1,6 @@
 package session9.part2;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public class ExpandedArray<T> {
 
