@@ -1,5 +1,10 @@
 package session10.part2;
 
+import java.util.function.Function;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 public class Application {
 
     public static void main(String[] args) {
@@ -26,5 +31,9 @@ public class Application {
         System.out.println("compose1.apply(10) = " + compose1.apply(10));
 
 
+
+
     }
+
+
 }
