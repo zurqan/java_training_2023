@@ -14,6 +14,7 @@ public class Application {
 
         Stream
                 .of(1,2,3,4,5,6,7,8,9,10)
+
 //                .filter(a->a%2==0)
                 .filter(isEven)
 
@@ -21,6 +22,7 @@ public class Application {
 
         int sum = IntStream
                 .range(1, 11)
+
 //                .filter(a -> a % 2 == 0)
                 .sum();
         System.out.println("sum = " + sum);
