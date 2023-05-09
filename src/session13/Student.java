@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Student {
+public class Student implements Comparable<Student>{
 
     private final String name;
     private final int age;
@@ -60,5 +60,17 @@ public class Student {
                 ", active=" + active +
                 ", courses=" + courses +
                 '}';
+    }
+
+//    @Override
+//    public int compareTo(Student o) {
+//        return this.age>o.getAge()
+//                ?1
+//                :this.age<o.getAge()
+//                ?-1
+//                :0;
+//    }    @Override
+    public int compareTo(Student o) {
+        return Integer.compare(age,o.getAge());
     }
 }
