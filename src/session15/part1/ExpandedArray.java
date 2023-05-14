@@ -109,6 +109,18 @@ public class ExpandedArray<T> {
 
     }
 
+
+    public ExpandedArray<T> addAllElements( ExpandedArray<T> listToBeIncluded){
+        //TODO need to be revisited
+        listToBeIncluded.forEach(a->addElement(a));
+        return this;
+    }
+
+    public <U> ExpandedArray<U> flatMap(Function<T,ExpandedArray<U>> mapper){
+
+        return reduceL(new ExpandedArray<U>(),acc->e->acc.addAllElements(mapper.apply(e)));
+    }
+
     public <U,V> Map<U, ExpandedArray<V>> grouping(Function<T,U> keyExtractor,Function<T,V> valueExtractor){
         return reduceL(
                 new HashMap<>(),
