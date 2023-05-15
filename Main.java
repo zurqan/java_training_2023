@@ -1,55 +1,59 @@
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
 public class Main {
     public static void main(String[] args) {
-        int[] arr = {4, 3, 2, 1,10,3,0,15,77};
-        System.out.println("max = "+maxArray(arr));
-        System.out.println("min = "+minArray(arr));
-        System.out.println("Average = "+avgArray(arr));
+        System.out.println("isValid(\" ))(( \") = " + isValid("))(("));
+        System.out.println("isValid(\" )() \") = " + isValid(")()"));
+        System.out.println("isValid(\"(()\") = " + isValid("(()"));
+        System.out.println("isValid(\"(())\") = " + isValid("(())"));
 
-        sortArray(arr);
-        for(int i=0;i<arr.length;i++)
-            System.out.print(arr[i]+" ");
+
+        int arr[] = {1,5,2,3,4,6,7};
+        System.out.println("median(arr) = " + median(arr));
+
+
     }
 
-    public static int maxArray(int[] arr) {
-        int max = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max)
-                max = arr[i];
+    public static  double median (int[]data){
+        PriorityQueue<Integer> higher=
+                new PriorityQueue<>(Integer::compareTo);
+        PriorityQueue<Integer> lower=
+                new PriorityQueue<>(Comparator.<Integer>comparingInt(a->a).reversed());
+
+        for (int i=0;i<data.length;i++){
+            higher.add(data[i]);
+
+            if(higher.size()-lower.size()==2)
+                lower.add(higher.poll());
         }
-        return max;
+
+
+        return
+                higher.size()==lower.size()
+                ?
+                (higher.element()+lower.element())/2.0
+                :
+                higher.element();
     }
 
-    public static int minArray(int[] arr) {
-        int min = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < min)
-                min = arr[i];
+    public static boolean isValid(String data){
+        Deque<String> deque = new LinkedList<>();
+
+        for (int i=0;i<data.length();i++){
+            if (data.charAt(i)=='(')
+                deque.push("(");
+            else if (data.charAt(i)==')') {
+                if(deque.isEmpty())
+                    return false;
+
+                deque.pop();
+            }
         }
-        return min;
-    }
+        return deque.isEmpty();
 
-    public static double avgArray(int[] arr) {
-        double sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-        }
-        return sum / arr.length;
-    }
 
-    public static int[] sortArray(int[] arr) {
-
-        int temp=0;
-        for(int i=0;i<arr.length-1;i++){
-
-                for (int j = i+1; j < arr.length; j++) {
-                    if (arr[i]>arr[j]){
-                        temp = arr[i];
-                        arr[i]=arr[j];
-                        arr[j]=temp;
-                    }
-                }
-
-        }
-        return arr;
     }
 }
