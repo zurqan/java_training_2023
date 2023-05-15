@@ -15,6 +15,8 @@ public class SetApplication {
         numbers.add(2);
         numbers.add(40);
 
+
+
         numbers.forEach(System.out::println);
 
         EnumSet<Color> allColers= EnumSet.allOf(Color.class);
