@@ -2,10 +2,12 @@ package session17;
 
 import session15.part1.CBIFunction;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class MyLinkedList<E> {
 
@@ -128,6 +130,10 @@ public class MyLinkedList<E> {
 //    }
 
 
+    public MyLinkedList<E> filter(Predicate<E> filterFunction){
+
+        return reduceL(new MyLinkedList<>(),acc->e->filterFunction.test(e)?acc.add(e):acc);
+    }
     public boolean allMatch(Predicate<E> condition) {
         return isEmpty()
                 ? false
@@ -136,6 +142,52 @@ public class MyLinkedList<E> {
 
     public boolean noneMatch(Predicate<E> condition){
         return allMatch(condition.negate());
+    }
+
+    public boolean anyMatch(Predicate<E> condition){
+        return isEmpty()
+                ? false
+                : reduceR(false,e->acc->acc || condition.test(e),e->acc-> acc);//acc==true
+    }
+
+    public Optional<E> min(Comparator<E> compareFunction){
+
+        return isEmpty()
+                ? Optional.empty()
+                :Optional.of(reduceR(last.data,e->acc->compareFunction.compare(acc,e)>0?e:acc));
+    }
+
+    public Stream<E> stream(){
+        return Stream.iterate(first,n->n!=null,n->n.next)
+                .map(n->n.data)
+
+                ;
+    }
+
+    public <U> MyLinkedList<Tuple<E,U>> zip(MyLinkedList<U> anotherList){
+        Node eFirst = first;
+        Node uFirst = (Node)anotherList.first;
+
+        return zip(new MyLinkedList<Tuple<E,U>>(),eFirst,uFirst);
+    }
+
+    public static <T,U> Tuple<MyLinkedList<T>,MyLinkedList<U>> unZip(MyLinkedList<Tuple<T,U>> zippedList){
+        //TODO ass#7
+        return null;
+    }
+
+    private <U> MyLinkedList<Tuple<E, U>> zip(MyLinkedList<Tuple<E, U>> acc, Node eNode, Node uNode) {
+        return eNode==null || uNode == null
+                ? acc
+                :zip(acc.add(new Tuple<E,U>(eNode.data,(U)uNode.data)),eNode.next,uNode.next);
+    }
+
+
+    public Optional<E> max(Comparator<E> compareFunction){
+
+        return isEmpty()
+                ? Optional.empty()
+                :Optional.of(reduceR(last.data,e->acc->compareFunction.compare(acc,e)<0?e:acc));
     }
 
     public boolean isEmpty() {
@@ -163,6 +215,18 @@ public class MyLinkedList<E> {
         return node == null
                 ? acc
                 : reduceR(accFunc.apply(node.data).apply(acc), accFunc, node.previous);
+
+    }
+
+    public <U> U reduceR(U seed, CBIFunction<E, U, U> accFunc,CBIFunction<E,U,Boolean> condition) {
+
+        return reduceR(seed, accFunc, condition,last);
+    }
+
+    private <U> U reduceR(U acc, CBIFunction<E, U, U> accFunc, CBIFunction<E, U, Boolean> condition, Node node) {
+        return node == null ||condition.apply(node.data).apply(acc)
+                ? acc
+                :reduceR(accFunc.apply(node.data).apply(acc), accFunc, condition,node.previous);
 
     }
 
