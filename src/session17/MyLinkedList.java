@@ -29,6 +29,7 @@ public class MyLinkedList<E> {
     }
 
 
+
     public static <E> MyLinkedList<E> of(E... data) {
         MyLinkedList<E> result = new MyLinkedList<>();
 
