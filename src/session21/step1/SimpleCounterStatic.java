@@ -31,8 +31,8 @@ public class SimpleCounterStatic {
 
         SimpleCounterStatic simpleCounterStatic1 = new SimpleCounterStatic();
         SimpleCounterStatic simpleCounterStatic2 = new SimpleCounterStatic();
-        int numberOfThreads = 10;
-        int numberOfIteration = 100000;
+        int numberOfThreads = 1000;
+        int numberOfIteration = 1000;
         CountDownLatch downLatch = new CountDownLatch(2*numberOfThreads);
         for (int i = 0; i < numberOfThreads; i++) {
             new Thread(()-> {
@@ -43,7 +43,7 @@ public class SimpleCounterStatic {
 //                    simpleCounterStatic1.incStatic();
 //                    simpleCounterStatic2.incStatic();
 
-                    synchronized (simpleCounterStatic1.getClass()){
+                    synchronized (simpleCounterStatic1){
                         simpleCounterStatic1.inc();
 
 
@@ -61,7 +61,7 @@ public class SimpleCounterStatic {
 //                    simpleCounterStatic1.incStatic();
 //                    simpleCounterStatic2.incStatic();
 
-                    synchronized (simpleCounterStatic2.getClass()){
+                    synchronized (simpleCounterStatic2){
 
 
                         simpleCounterStatic2.inc();

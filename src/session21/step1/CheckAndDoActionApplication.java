@@ -19,6 +19,11 @@ public class CheckAndDoActionApplication {
             while (!checkAndDoActionApplication.isDone()){
                 ;
             }
+            /**
+             * while(true){
+             *     ;
+             * }
+             */
             System.out.println(checkAndDoActionApplication.flag);
         }).start();
 
