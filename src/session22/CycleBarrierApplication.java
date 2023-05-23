@@ -35,6 +35,8 @@ public class CycleBarrierApplication {
 
         }
 
+        executorService.shutdown();
+
     }
 
     private static void sleep(int waitInSeconds) {
